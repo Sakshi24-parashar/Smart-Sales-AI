@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from joblib import load
 import os
+@app.get("/")
+def home():
+    return {"status": "running"}
 
 app = FastAPI()
 
