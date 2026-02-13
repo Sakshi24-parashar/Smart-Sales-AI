@@ -3,10 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from joblib import load
 import os
-@app.get("/")
-def home():
-    return {"status": "running"}
 
+# Initialize app first
 app = FastAPI()
 
 # Allow React frontend
@@ -26,6 +24,10 @@ class SalesData(BaseModel):
     price: float
     sold: int
     discount: float
+
+@app.get("/")
+def home():
+    return {"status": "running"}
 
 @app.post("/predict")
 def predict(data: SalesData):
@@ -61,8 +63,6 @@ def predict(data: SalesData):
         "trend": trend_map[prediction],
         "recommendation": advice
     }
-
-
 
 # steps to start
 # cd backend
