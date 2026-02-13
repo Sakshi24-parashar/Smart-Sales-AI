@@ -54,7 +54,7 @@ python train_model.py
 python -m uvicorn main:app --reload
 
 Backend runs at:
-http://127.0.0.1:8000
+https://smart-sales-backend-8yn7.onrender.com/
 
 2️⃣ Frontend Setup
 cd frontend
@@ -62,7 +62,7 @@ npm install
 npm start
 
 Frontend runs at:
-http://localhost:3000
+https://smart-sales-frontend.onrender.com/
 
 ## 📊 Example Output
 
