@@ -16,6 +16,9 @@ function App() {
   };
 
   const predict = async () => {
+  setResult(null);
+
+  try {
     const res = await fetch("https://smart-sales-backend-8yn7.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,6 +32,9 @@ function App() {
 
     const data = await res.json();
     setResult(data);
+  } catch (err) {
+    alert("Backend waking up — try again in 30 seconds");
+  }
   };
 
   return (

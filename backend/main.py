@@ -11,7 +11,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -31,6 +31,9 @@ def home():
 
 @app.post("/predict")
 def predict(data: SalesData):
+    revenue = data.price * data.sold
+    margin = profit / revenue if revenue != 0 else 0
+
     profit = (data.price - data.cost) * data.sold
 
     features = [[
@@ -38,7 +41,8 @@ def predict(data: SalesData):
         data.price,
         data.sold,
         data.discount,
-        profit
+        profit,
+        margin
     ]]
 
     prediction = model.predict(features)[0]

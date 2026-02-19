@@ -5,33 +5,44 @@ from joblib import dump
 
 data = []
 
-for _ in range(2000):
+for _ in range(3000):
     cost = random.randint(50, 300)
-    price = random.randint(cost+10, cost+200)
-    sold = random.randint(1, 100)
-    discount = random.randint(0, 30)
+    price = random.randint(cost + 10, cost + 250)
+    sold = random.randint(5, 120)
+    discount = random.randint(0, 40)
 
+    revenue = price * sold
     profit = (price - cost) * sold
 
-    if sold > 60:
+    # Avoid divide by zero
+    margin = profit / revenue if revenue != 0 else 0
+
+    # Realistic trend generation
+    if profit > 6000 and sold > 60 and margin > 0.25:
         trend = 2   # Up
-    elif sold > 30:
+    elif profit > 2000 and sold > 25:
         trend = 1   # Stable
     else:
         trend = 0   # Down
 
-    data.append([cost, price, sold, discount, profit, trend])
+    data.append([
+        cost, price, sold, discount, profit, margin, trend
+    ])
 
 df = pd.DataFrame(data, columns=[
-    "cost","price","sold","discount","profit","trend"
+    "cost", "price", "sold", "discount", "profit", "margin", "trend"
 ])
 
-X = df[["cost","price","sold","discount","profit"]]
+X = df[["cost", "price", "sold", "discount", "profit", "margin"]]
 y = df["trend"]
 
-model = RandomForestClassifier()
+model = RandomForestClassifier(
+    n_estimators=200,
+    random_state=42
+)
+
 model.fit(X, y)
 
 dump(model, "model.pkl")
 
-print("Model trained and saved!")
+print("✅ Smart sales trend model trained successfully!")
