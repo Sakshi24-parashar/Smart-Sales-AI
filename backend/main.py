@@ -31,10 +31,11 @@ def home():
 
 @app.post("/predict")
 def predict(data: SalesData):
+    profit = (data.price - data.cost) * data.sold
     revenue = data.price * data.sold
     margin = profit / revenue if revenue != 0 else 0
 
-    profit = (data.price - data.cost) * data.sold
+    
 
     features = [[
         data.cost,
