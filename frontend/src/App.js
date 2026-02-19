@@ -19,7 +19,7 @@ function App() {
   setResult(null);
 
   try {
-    const res = await fetch("https://smart-sales-backend-8yn7.onrender.com/predict", {
+    const res = await fetch("https://smart-sales-ai.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
